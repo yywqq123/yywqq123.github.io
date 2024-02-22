@@ -1,0 +1,711 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WY3507">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言现在攻防演练也很频繁，也越来越不好打，但当我们在前期信息收集做的越完善时可能就会有新的发现来帮助我们突破外网边界。 域名收集根域收集123456789101112企查查 ：https:&#x2F;&#x2F;www.qcc.com&#x2F;爱企查 ：https:&#x2F;&#x2F;aiqicha.baidu.com&#x2F;查询旗下收购公司信息：https:&#x2F;&#x2F;www.crunchbase.com&#x2F; 这个可能更常用于src挖掘的资产收集中，查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红队-外网信息收集">
+<meta property="og:url" content="http://example.com/2024/02/22/%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/index.html">
+<meta property="og:site_name" content="WY3507&amp;Blog">
+<meta property="og:description" content="前言现在攻防演练也很频繁，也越来越不好打，但当我们在前期信息收集做的越完善时可能就会有新的发现来帮助我们突破外网边界。 域名收集根域收集123456789101112企查查 ：https:&#x2F;&#x2F;www.qcc.com&#x2F;爱企查 ：https:&#x2F;&#x2F;aiqicha.baidu.com&#x2F;查询旗下收购公司信息：https:&#x2F;&#x2F;www.crunchbase.com&#x2F; 这个可能更常用于src挖掘的资产收集中，查询">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222160613354.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222173215648.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222173521901.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161125178.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161255418.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161802500.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161817624.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222173928682.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222174215392.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180242077.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180255298.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180428463.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180534273.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180619786.png">
+<meta property="og:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180708297.png">
+<meta property="article:published_time" content="2024-02-22T06:13:27.042Z">
+<meta property="article:modified_time" content="2024-02-22T10:08:36.538Z">
+<meta property="article:author" content="WY3507">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222160613354.png">
+  
+  
+  
+  <title>红队-外网信息收集 - WY3507&amp;Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WY3507&amp;Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="红队-外网信息收集"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-22 14:13" pubdate>
+          2024年2月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">红队-外网信息收集</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在攻防演练也很频繁，也越来越不好打，但当我们在前期信息收集做的越完善时可能就会有新的发现来帮助我们突破外网边界。</p>
+<h3 id="域名收集"><a href="#域名收集" class="headerlink" title="域名收集"></a>域名收集</h3><h4 id="根域收集"><a href="#根域收集" class="headerlink" title="根域收集"></a>根域收集</h4><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs perl">企查查 ：https:<span class="hljs-regexp">//</span>www.qcc.com/<br>爱企查 ：https:<span class="hljs-regexp">//ai</span>qicha.baidu.com/<br>查询旗下收购公司信息：https:<span class="hljs-regexp">//</span>www.crunchbase.com/ 这个可能更常用于src挖掘的资产收集中，查询那家单位被收购了可能被收购的公司漏洞也会要<br>小蓝本：https:<span class="hljs-regexp">//</span>www.xiaolanben.com/<br>钉钉企典：https:<span class="hljs-regexp">//</span>www.dingtalk.com/qidian/<br>自动收集工具 ：ENScan_GO   https:<span class="hljs-regexp">//gi</span>thub.com/afwu/ENScan_GO<br><br><br>ASN枚举：https:<span class="hljs-regexp">//</span>bgp.he.net/AS4509<span class="hljs-number">0</span><span class="hljs-comment">#_prefixes </span><br>通过asn枚举寻找资产，但更多用于src挖掘（推荐文章：https:<span class="hljs-regexp">//x</span>z.aliyun.com/t/<span class="hljs-number">9455</span>?time__1311=n4%2BxuDgD9AdGq4WqGNDQT4BIfdSW1Oit4D&amp;alichlgref=https%<span class="hljs-number">3</span>A%<span class="hljs-number">2</span>F%2Fwww.baidu.com%<span class="hljs-number">2</span>Flink%<span class="hljs-number">3</span>Furl%3D9itPJUbnIjx9tjQajL2HdKKad1CgTFhTFnx8OJzqe1VKV13jzg2BpuGBSoT00Z-R%26wd%<span class="hljs-number">3</span>D%26eqid%3Dc68682be000300ca0000000465d6f765）<br><br>通过上述方法收集到目标的根域以及下属单位的域名<br></code></pre></td></tr></table></figure>
+
+<h4 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">常用的资产搜索引擎推荐<br>鹰图：https://hunter.qianxin.com/  新资产多但有些敏感的资产不能查看<br>fofa：https://fofa.info/  常用，老资产比较多时不时会发现边缘资产<br>quake：https://quake.360.net/quake/login<span class="hljs-comment">#/ 资产还可以敏感资产可以查看也是目前花钱最便宜的了</span><br>shodan：https://www.shodan.io/  国外资产收集平台，时不时用一下也可能会发现意外资产<br><br>注：我们在搜索时一定要对目标资产用多个语法查询资产，可能就会有新的收获，比如搜索c段、域名、备案、公司名、标题、证书、全资子公司等<br></code></pre></td></tr></table></figure>
+
+<h4 id="域名收集-1"><a href="#域名收集-1" class="headerlink" title="域名收集"></a>域名收集</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">oneforall : https://github.com/shmilylty/OneForAll<br>命令单个：python3 oneforall.py --target target.com run<br>命令批量：python3 oneforall.py --targets domain.txt run<br>也是比较常用的子域名收集工具了<br><br>Sublist3r 项目地址：https://github.com/aboul3la/Sublist3r 命令：python sublist3r.py -d target.com -b -t 50 -p 80,443,21,22<br>默认参数扫描子域名<br>python sublist3r.py -d baidu.com <br>使用暴力枚举子域名<br>python sublist3r -b -d baidu.com <br><br>ksubdomain ： https://github.com/boy-hack/ksubdomain<br><br>subfinder：https://github.com/projectdiscovery/subfinder<br><br>https://www.wolframalpha.com/  国外子域收集网站<br></code></pre></td></tr></table></figure>
+
+<h4 id="证书收集"><a href="#证书收集" class="headerlink" title="证书收集"></a>证书收集</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">https://search.censys.io/<br>https://crt.sh/<br>https://dnsdumpster.com/<br></code></pre></td></tr></table></figure>
+
+<h4 id="自动资产收集"><a href="#自动资产收集" class="headerlink" title="自动资产收集"></a>自动资产收集</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">灯塔 ：https://github.com/TophantTechnology/ARL 会自动收集目标资产并探测一些敏感目录和漏洞，因为有些系统在二级目录下所以时不时会有意外收获<br>水泽：https://github.com/0x727/ShuiZe_0x727<br></code></pre></td></tr></table></figure>
+
+<h4 id="谷歌-Github-语雀-语法"><a href="#谷歌-Github-语雀-语法" class="headerlink" title="谷歌&amp;Github&amp;语雀 语法"></a>谷歌&amp;Github&amp;语雀 语法</h4><p>通过google语法收集资产</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222160613354.png" srcset="/img/loading.gif" lazyload alt="image-20240222160613354"></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">以及其他常用语法<br><br><span class="hljs-symbol">intext:</span><span class="hljs-string">&quot;© XXX版权所有&quot;</span><br><br><span class="hljs-symbol">site:</span> xxx.com filetype:doc 、pdf、xls<br><br><span class="hljs-symbol">site:</span> xxx.com 管理、后台、系统、密码、账号<br></code></pre></td></tr></table></figure>
+
+<p><strong>Github语法</strong>  (注：在平时收集资产时可以通过github来收集一些敏感的资产)</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222173215648.png" srcset="/img/loading.gif" lazyload alt="image-20240222173215648"></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&quot;token&quot;  <br>&quot;password&quot;  <br>&quot;secret&quot;  <br>&quot;passwd&quot;  <br>&quot;username&quot;  <br>&quot;key&quot;  <br>&quot;apidocs&quot;  <br>&quot;appspot&quot;  <br>&quot;auth&quot;  <br>&quot;aws\_access&quot;  <br>&quot;config&quot;  <br>&quot;credentials&quot;  <br>&quot;dbuser&quot;  <br>&quot;ftp&quot;  <br>&quot;login&quot;  <br>&quot;mailchimp&quot;  <br>&quot;mailgun&quot;  <br>&quot;mysql&quot;  <br>&quot;pass&quot;  <br>&quot;pem private&quot;  <br>&quot;prod&quot;  <br>&quot;pwd&quot;  <br>&quot;secure&quot;  <br>&quot;ssh&quot;  <br>&quot;staging&quot;  <br>&quot;stg&quot;  <br>&quot;stripe&quot;  <br>&quot;swagger&quot;  <br>&quot;testuser&quot;  <br>&quot;jdbc&quot;  <br><span class="hljs-keyword">extension</span>:pem private  <br><span class="hljs-keyword">extension</span>:ppk private  <br><span class="hljs-keyword">extension</span>:<span class="hljs-keyword">sql</span> mysql dump <span class="hljs-keyword">password</span>  <br><span class="hljs-keyword">extension</span>:<span class="hljs-type">json</span> api.forecast.io  <br><span class="hljs-keyword">extension</span>:<span class="hljs-type">json</span> mongolab.com  <br><span class="hljs-keyword">extension</span>:yaml mongolab.com  <br><span class="hljs-keyword">extension</span>:ica \[WFClient\] <span class="hljs-keyword">Password</span>\=  <br><span class="hljs-keyword">extension</span>:avastlic “support.avast.com”  <br><span class="hljs-keyword">extension</span>:js jsforce conn.<span class="hljs-keyword">login</span>  <br><span class="hljs-keyword">extension</span>:<span class="hljs-type">json</span> googleusercontent client\_secret  <br>“target.com” send\_keys  <br>“target.com” <span class="hljs-keyword">password</span>  <br>“target.com” api\_key  <br>“target.com” apikey  <br>“target.com” jira\_password  <br>“target.com” root\_password  <br>“target.com” <span class="hljs-keyword">access</span>\_token  <br>“target.com” config  <br>“target.com” client\_secret  <br>“target.com” <span class="hljs-keyword">user</span> auth<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>语雀信息收集</strong></p>
+<p>可以结合目标系统以及你收集到的信息来语雀搜索敏感资料和信息，比如域名、邮箱、系统名、公司名等方法搜索</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222173521901.png" srcset="/img/loading.gif" lazyload alt="image-20240222173521901"></p>
+<h4 id="JS子域收集"><a href="#JS子域收集" class="headerlink" title="JS子域收集"></a>JS子域收集</h4><p>通过burp收集js中的根域和子域名</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161125178.png" srcset="/img/loading.gif" lazyload alt="image-20240222161125178"></p>
+<p>通过 gospider工具收集网站内js中的其他子域</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://github.com/jaeles-project/gospider">https://github.com/jaeles-project/gospider</a></p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161255418.png" srcset="/img/loading.gif" lazyload alt="image-20240222161255418"></p>
+<p>通过SubDomainizer工具收集子域</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/nsonaniya2010/SubDomainizer">https://github.com/nsonaniya2010/SubDomainizer</a></p>
+<p>功能：</p>
+<p>1.查找js文件中引用的子域</p>
+<p>2.查找js文件中引用的云服务<br>3.使用香农熵公式在js文件中找到潜在的敏感项它只需要一个页面，扫描js文件进行分析。</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161802500.png" srcset="/img/loading.gif" lazyload alt="image-20240222161802500"></p>
+<p>注：在我们收集资产中除了打web外，其实也可以尝试打他们的云服务，在很多时候发开会不小心将相关密钥放在js文件中，若要是有发现那也可以获得一定的分数，甚至能在云服务中发现更多有用的信息。</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222161817624.png" srcset="/img/loading.gif" lazyload alt="image-20240222161817624"></p>
+<h4 id="APP资产收集"><a href="#APP资产收集" class="headerlink" title="APP资产收集"></a>APP资产收集</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">七麦数据：https:<span class="hljs-regexp">//</span>www.qimai.cn/ 收集目标旗下的app<br>酷传：https:<span class="hljs-regexp">//</span>www.kuchuan.com/ 收集目标旗下的app<br>蝉应用：https:<span class="hljs-regexp">//</span>app.chandashi.com/ 收集目标旗下的app<br>豌豆荚：https:<span class="hljs-regexp">//</span>www.wandoujia.com/ 获取app历史版本<br>摸瓜：https:<span class="hljs-regexp">//m</span>ogua.co/  对app反编译收集app中的敏感信息，可能会发现新的ip、域名、密钥等信息<br>appinfoscanner：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/kelvinBen/</span>AppInfoScanner 收集app中的敏感信息<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="小程序资产收集"><a href="#小程序资产收集" class="headerlink" title="小程序资产收集"></a>小程序资产收集</h4><p>通过微信搜索相关字以及目标公司全名</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222173928682.png" srcset="/img/loading.gif" lazyload alt="image-20240222173928682"></p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222174215392.png" srcset="/img/loading.gif" lazyload alt="image-20240222174215392"></p>
+<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">naabu:https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/projectdiscovery/</span>naabu 扫描全端口快<br>Rustscan:https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/RustScan/</span>RustScan 扫描全端口快<br>vscan:https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/veo/</span>vscan 会快速扫描资产全端口、也是漏洞扫描工具<br>railgun：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/lz520520/</span>railgun 多功能信息收集工具有全端口扫描功能但是扫描慢但我觉得准一点<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="指纹识别"><a href="#指纹识别" class="headerlink" title="指纹识别"></a>指纹识别</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">ehole:https://github.com/ShiHuang-ESec/EHole 对收集的资产指纹识别，但是识别不全需要自己加指纹<br>Ehole_magic：https://github.com/lemonlove7/EHole_magic 魔改版，好处是可以自己添加目录路径，因为现在很多系统都在二级目录下的，我们可以在平常项目中积累一些特殊的目录放置进去说不定哪天就遇到了<br><br>就比如：xxljob的一些目录：<br>/xxl-job-admin<br>/xxl-job-admin-2.1.0<br>/job-admin<br>/job-admin/joblog<br><br>帆软：<br>/webroot/decision/login<br>/webroot<br>/webroot/decision/remote/design/channel<br><br>smartbi：<br>/smartbi/<br>/smartbi/vision/RMIServlet<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="供应链资产收集"><a href="#供应链资产收集" class="headerlink" title="供应链资产收集"></a>供应链资产收集</h4><p>在很多项目中他们的系统都会存在是第三方开发的系统，但是目标的系统不存在什么历史漏洞和弱密码，那我们就可以去收集该系统的特征去资产收集平台查询是否存在相同的站或者找到官方测试站，然后去对别的相同的站或测试站渗透测试，往往别的站或测试站就会存在弱口令等问题我们就想办法拿到测试站或相同的站的shell后拿源码去审计源码通过0day去测试我们的目标站点。该方法已经是现在攻防长走的攻击思路了，毕竟再靠历史漏洞去打真的越来越难打了，尤其是比较难的项目！</p>
+<p><strong>怎么收集呢</strong></p>
+<p>1、通过查看网站js源码找特征去搜</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180242077.png" srcset="/img/loading.gif" lazyload alt="image-20240222180242077"></p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180255298.png" srcset="/img/loading.gif" lazyload alt="image-20240222180255298"></p>
+<p>2、通过查看系统图标去搜</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180428463.png" srcset="/img/loading.gif" lazyload alt="image-20240222180428463"></p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180534273.png" srcset="/img/loading.gif" lazyload alt="image-20240222180534273"></p>
+<p>3、搜索系统名字</p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180619786.png" srcset="/img/loading.gif" lazyload alt="image-20240222180619786"></p>
+<p><img src="C:\Users\yang\AppData\Roaming\Typora\typora-user-images\image-20240222180708297.png" srcset="/img/loading.gif" lazyload alt="image-20240222180708297"></p>
+<p><strong>总结：</strong>只有前期做越好的信息收集工作可能才会有新的惊喜</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BA%A2%E9%98%9F%E6%94%BB%E9%98%B2/" class="category-chain-item">红队攻防</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>红队-外网信息收集</div>
+      <div>http://example.com/2024/02/22/外网信息收集/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WY3507</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/21/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
