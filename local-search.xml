@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>WSDL渗透测试</title>
+    <link href="/2024/02/23/WSDL%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    <url>/2024/02/23/WSDL%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>通常在网站通讯中很多都会调用api接口去管理更多得信息，但是这往往会是发开人员做限制比较薄弱得地方，就可能让我们有机可乘，在一次攻防中我就遇到了这个场景</p><h2 id="WSDL"><a href="#WSDL" class="headerlink" title="WSDL"></a>WSDL</h2><p>​有人在WebService开发的时候，特别是和第三方有接口的时候，走的是SOAP协议，然后用户（或后台）给你一个WSDL文件（或网址）</p><p>​WSDL (Web Services Description Language,Web服务描述语言)是一种XML Application，他将Web服务描述定义为一组服务访问点，客户端可以通过这些服务访问点对包含面向文档信息或面向过程调用的服务进行访问(类似远程过程调用)。WSDL首先对访问的操作和访问时使用的请求&#x2F;响应消息进行抽象描述，然后将其绑定到具体的传输协议和消息格式上以最终定义具体部署的服务访问点。相关的具体部署的服务访问点通过组合就成为抽象的Web服务</p><h2 id="WSDL会产生什么漏洞"><a href="#WSDL会产生什么漏洞" class="headerlink" title="WSDL会产生什么漏洞"></a>WSDL会产生什么漏洞</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-number">1</span>.Web 应用安全漏洞:<br>   sql注入<br>   xss攻击<br>   命令执行<br>   越权<br>   LDAP注入<br>   缓冲区溢出<br>   逻辑漏洞<br>   等等<br>   <br><span class="hljs-number">2</span>.<span class="hljs-keyword">XML</span> <span class="hljs-title">相关的特殊安全漏洞:</span><br><span class="hljs-title">   XPath</span>注入<br>   XQuery注入<br>   拒绝服务攻击（SOAP 数组溢出、递归的 <span class="hljs-keyword">XML</span> <span class="hljs-title">实体声明、超大消息体）</span><br><span class="hljs-title">   信息泄漏（XML</span> External Entity File Disclosure）<br>   等等<br></code></pre></td></tr></table></figure><h2 id="实战测试"><a href="#实战测试" class="headerlink" title="实战测试"></a>实战测试</h2><p>一、 发现该站点存在WSDL网站（其实WSDL得特征还是挺明显得，但是从明面上发现没有可利用得功能点，可能经验少的人就会略过，但他不曾想到这个站点会给他带来惊喜）<strong>但是这不是WSDL的单一特征</strong></p><p><strong>hunter语法: web.body&#x3D;”WS-Inspection “</strong></p><p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223165256204.png" alt="image-20240223165256204"></p><p>二、WSDL是一个api接口我们需要利用工具或者插件去探索各个接口下的xml文档，而漏洞就是产生在这些xml文档中</p><p>我们可以直接利用<strong>burp中的插件Wsdler</strong></p><p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223170100243.png" alt="image-20240223170100243"></p><p>安装完插件利用该插件去查看存在的xml包</p><p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223171138234.png" alt="image-20240223171138234"></p><p>发现存在xml数据包</p><p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223171353819.png" alt="image-20240223171353819"></p><p>接下来我们就可以对该数据包进行漏洞探测了，一般常见的就是sql注入和xxe了</p><p><strong>sql注入漏洞</strong></p><p>一般通wsdl发现的注入都是sqlserver数据库，要是又是DBA权限的话那离拿shell也不远了</p><p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223180901639.png" alt="image-20240223180901639"></p><p><strong>xxe漏洞</strong></p><p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223180117000.png" alt="image-20240223180117000"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>红队攻防</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>渗透</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>红队-外网信息收集</title>
     <link href="/2024/02/22/%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
     <url>/2024/02/22/%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</url>
