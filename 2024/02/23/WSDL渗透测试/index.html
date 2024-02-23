@@ -23,18 +23,18 @@
 <meta property="og:site_name" content="WY3507&amp;Blog">
 <meta property="og:description" content="前言通常在网站通讯中很多都会调用api接口去管理更多得信息，但是这往往会是发开人员做限制比较薄弱得地方，就可能让我们有机可乘，在一次攻防中我就遇到了这个场景 WSDL​		有人在WebService开发的时候，特别是和第三方有接口的时候，走的是SOAP协议，然后用户（或后台）给你一个WSDL文件（或网址） ​		WSDL (Web Services Description Language,Web">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223165256204.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223170100243.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223171138234.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223171353819.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223180901639.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223180117000.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223165256204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223170100243.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171138234.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171353819.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180901639.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180117000.png">
 <meta property="article:published_time" content="2024-02-23T08:33:47.000Z">
-<meta property="article:modified_time" content="2024-02-23T10:11:44.246Z">
+<meta property="article:modified_time" content="2024-02-23T10:13:53.779Z">
 <meta property="article:author" content="WY3507">
 <meta property="article:tag" content="渗透">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223165256204.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223165256204.png">
   
   
   
@@ -289,20 +289,20 @@
 
 <h2 id="实战测试"><a href="#实战测试" class="headerlink" title="实战测试"></a>实战测试</h2><p>一、 发现该站点存在WSDL网站（其实WSDL得特征还是挺明显得，但是从明面上发现没有可利用得功能点，可能经验少的人就会略过，但他不曾想到这个站点会给他带来惊喜）<strong>但是这不是WSDL的单一特征</strong></p>
 <p><strong>hunter语法: web.body&#x3D;”WS-Inspection “</strong></p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223165256204.png" srcset="/img/loading.gif" lazyload alt="image-20240223165256204"></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223165256204.png" srcset="/img/loading.gif" lazyload alt="image-20240223165256204"></p>
 <p>二、WSDL是一个api接口我们需要利用工具或者插件去探索各个接口下的xml文档，而漏洞就是产生在这些xml文档中</p>
 <p>我们可以直接利用<strong>burp中的插件Wsdler</strong></p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223170100243.png" srcset="/img/loading.gif" lazyload alt="image-20240223170100243"></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223170100243.png" srcset="/img/loading.gif" lazyload alt="image-20240223170100243"></p>
 <p>安装完插件利用该插件去查看存在的xml包</p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223171138234.png" srcset="/img/loading.gif" lazyload alt="image-20240223171138234"></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171138234.png" srcset="/img/loading.gif" lazyload alt="image-20240223171138234"></p>
 <p>发现存在xml数据包</p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223171353819.png" srcset="/img/loading.gif" lazyload alt="image-20240223171353819"></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171353819.png" srcset="/img/loading.gif" lazyload alt="image-20240223171353819"></p>
 <p>接下来我们就可以对该数据包进行漏洞探测了，一般常见的就是sql注入和xxe了</p>
 <p><strong>sql注入漏洞</strong></p>
 <p>一般通wsdl发现的注入都是sqlserver数据库，要是又是DBA权限的话那离拿shell也不远了</p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223180901639.png" srcset="/img/loading.gif" lazyload alt="image-20240223180901639"></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180901639.png" srcset="/img/loading.gif" lazyload alt="image-20240223180901639"></p>
 <p><strong>xxe漏洞</strong></p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/imageimage-20240223180117000.png" srcset="/img/loading.gif" lazyload alt="image-20240223180117000"></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180117000.png" srcset="/img/loading.gif" lazyload alt="image-20240223180117000"></p>
 
                 
               </div>
