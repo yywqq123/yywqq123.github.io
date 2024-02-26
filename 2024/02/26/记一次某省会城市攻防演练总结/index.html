@@ -23,15 +23,38 @@
 <meta property="og:site_name" content="WY3507&amp;Blog">
 <meta property="og:description" content="前言记录一次前整子参与的攻防演练总结，在此期间也是大起大落，也是遇到问题并解决问题，为此也分享一下整个过程吧！ 外网打点此次攻防是抽签式的拿资产，应该是老天眷顾我们我们抽到的资产是挺不错的，这为我们后面铺好了路，为撒这么说呢，那就开始我们的正题！ 不加思索拿到资产后当然是信息收集，信息收集就不多说了，就是各种工具，资产收集网站干就行了！ 我们的资产里有一家商场单位，想都不想当然觉得商场好打了啊，那">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="file:///C:/Users/yang/AppData/Local/Temp/ksohtml23636/wps34.jpg">
-<meta property="og:image" content="file:///C:/Users/yang/AppData/Local/Temp/ksohtml23636/wps35.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps16.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps17.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps18.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps19.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps20.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps21.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps22.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps23.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps24.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps25.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps26.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps27.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps28.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps29.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps30.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps31.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps32.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps33.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps34.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps35.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps36.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps37.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps38.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps39.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps40.jpg">
 <meta property="article:published_time" content="2024-02-26T09:23:41.000Z">
-<meta property="article:modified_time" content="2024-02-26T09:30:56.739Z">
+<meta property="article:modified_time" content="2024-02-26T09:40:55.544Z">
 <meta property="article:author" content="WY3507">
 <meta property="article:tag" content="红队">
 <meta property="article:tag" content="攻防">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="file:///C:/Users/yang/AppData/Local/Temp/ksohtml23636/wps34.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps16.jpg">
   
   
   
@@ -224,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          3.8k 字
         
       </span>
     
@@ -235,7 +258,7 @@
         
         
         
-          34 分钟
+          32 分钟
         
       </span>
     
@@ -282,64 +305,64 @@
 <p>不加思索拿到资产后当然是信息收集，信息收集就不多说了，就是各种工具，资产收集网站干就行了！</p>
 <p>我们的资产里有一家商场单位，想都不想当然觉得商场好打了啊，那就先干它吧，也确实这家单位确实给了我们惊喜！一上来就给了我们一个shiro漏洞！</p>
 <p>并且还是他们的官网！是不是挺离谱的，这才刚打一个小时我们就拿到了shell，搁谁都很开心的！</p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps16.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps17.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps16.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps17.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <h2 id="攻入内网？"><a href="#攻入内网？" class="headerlink" title="攻入内网？"></a>攻入内网？</h2><p>拿到shell后也是做个维权放了一个内存马，爽呆呆那就开始内网吧，那就上个CS吧想着，先看看对方用的撒杀软吧，想来国内用的基本是360了应该问题不大，但是一查竟然是卡巴斯基，擦！转头就问队友卡巴你的马能过吗？他说没问题！好那就上吧！可惜一上就被杀，哈哈！转脸就问队友不是能过嘛？说他测试可以…… 那想着就不上CS了吧，上个frp直接干吧。可是它是卡巴，用了几个代理都是直接被杀，当然也有小编菜的原因。</p>
 <p>那该怎么办？直接用冰蝎自带的的代理吧，慢是慢了些能用就行，想着赶紧找个出网的linux机器做代理吧，那就让它慢慢扫呗，此时队友也在想别的办法。</p>
 <p>可是老天不会让你一直幸运下去的吧！嗯，是的。网站没了！访问500了……</p>
 <p>心想是被发现了吧！这么快，防守方反应挺快！</p>
 <h2 id="信息收集第一天"><a href="#信息收集第一天" class="headerlink" title="信息收集第一天"></a>信息收集第一天</h2><p>第一个点没了虽然很难受，但依旧要勇猛向前冲啊，那就开始继续撕口子呗，还好这家资产还算多，继续新的信息收集吧，打攻防最重要的就是信息收集了而且要仔细！该单位发现有OA系统并且是泛微的，那肯定要打一遍历史漏洞了呀，当时肯定是没戏的了，那就想着看能不能拿到他们的工号去他们OA里翻翻有用的信息咯以及去钓鱼！</p>
 <p>后面也没想着找他们工号了，毕竟直接找能拿shell的站比工号重要，但是在测试他们有一个系统时却发现了他们的工号，在点击帮助这里显示了他的工号，这里也是要仔细看每一个点，不然很可能就不会发现他们的工号了，这里埋个点，这个工号救了我们的命哈哈！</p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps18.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps19.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps18.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps19.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>那行竟然发现了他们的工号，就去他们OA系统里看看吧，此时我就拿这个工号去登，密码这里不知道的但是可以猜啊或者去爆破，当然很幸运密码我输了一下是他的工号，好OA登进去了，并发现他是该集团的管理员，也可以说是运维人员的头头吧。在OA里各种找有用的信息。发现了他的企业邮箱并还有密码，挺开心的，那就去钓鱼呗！</p>
 <p>是的，我们去钓了但是我们被发现了并还回信骂我们 哈哈 离谱，想着不应该啊防范意识挺高啊！（为撒会被发现文章结尾会说），那钓鱼不成，就继续信息收集呗，在他的OA系统里他因为是管理员嘛他在里面关联了上图观远数据的账号和密码，我们点击了下图中的BI管理驾驶舱，发现会跳转到观远数据这个系统去并直接进入了后台！（当然我也点了其他的系统，但是其他系统都是放在内网的无法访问），进入到观远数据这个系统发现这个系统很重要，里面可以控制其内部的十几台数据库以及各种私密信息，也是能拿不少分的。</p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps20.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps21.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps22.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps23.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps20.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps21.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps22.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps23.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <h2 id="信息收集第二天"><a href="#信息收集第二天" class="headerlink" title="信息收集第二天"></a>信息收集第二天</h2><p>虽然上面的东西能让我们获得一定的分数。但是依旧没让我们进到内网，也是很急迫，这里我们还是去看看了我们的那个shiro的漏洞但还是访问不了，那就只能继续去找点了，第一天那个管理员的OA看完了，就想着去看看别的人员的OA会不会有别的有用信息呢，此时他们的OA还是可以爆破的也是通过他们工号的规律去做了一个账号和密码本，也是跑出了上万个账号，该说不说这家单位人还是挺多的，但是也拿了一些账号去继续翻信息但是没撒发现。</p>
 <p>然后我又返回去那个管理员的账户再看看有没有遗漏的信息没注意到，可谁想他把密码改了！并把该系统加上了一个验证码验证功能！哈哈，想着又被发现了呗，心中骂娘中！</p>
 <p>到饭点了想着吃完饭再干吧，晚上回到房间继续搞呗，想着web不行那就搞小程序，app呗，确实app上有收获，bp扫出来了一个大杀器！Log4j2漏洞，可以可以把这个喜讯告诉队友继续开搞，可惜的是这个app是在云上的并且没能返回shell，当然这里也没放弃，让队友再继续搞一下！（这里图丢了就不放图了哈）</p>
 <h2 id="柳暗花明"><a href="#柳暗花明" class="headerlink" title="柳暗花明"></a>柳暗花明</h2><p>接上文说起，Log4j2漏洞依旧没利用成功，时间也一点点过去，该找的也找了，想着这家单位不行就放吧，看看其他单位的资产，但是队友已经拿到另一家单位的shell了并已经进入内网了！就让我们同步进行，毕竟想拿第一可不是干穿一家单位就行的，那我继续摸索现在这家单位吧！就那再认真些！我又换别的OA账号去登他们的OA再去看看，当然这次确实没白看，找到了很有用的信息，我们在OA里通过搜索账号和密码来找寻信息，看到了一个异速联的账号和密码，        其实这个异速联的账号和密码我第一天就看到了但是为撒没用呢，因为我队友发现了他们异速联的系统，并通过<em><strong>*admin&#x2F;admin*</strong></em> 登进去了但是里面是空的。</p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps24.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps25.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps24.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps25.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>并且是第一天就发现了，但是想着里面是空的没法利用，这里为撒异速联挺重要呢，这里解释一下异速联这个系统吧。异速联就像vpn一样，里面的系统是直接通他们内网的系统，可以通过一些方法去拿到内网权限的。可以看看下面这篇文章:</p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/JaUATNCT1eEkXn9WpP4GaA">https://mp.weixin.qq.com/s/JaUATNCT1eEkXn9WpP4GaA</a></p>
 <p>当时想着admin账户密码都不没东西估计其他帐号也没东西，所以第一天也没注意OA里的异速联账号和密码，但是时间快没了，就想着再试试他们的账号吧，确实惊喜来了用他们的账号就有东西了！</p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps26.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps27.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps26.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps27.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>然后我们就可以利用我发的那篇文章去利用获取权限了，但是因为我们的马不能过卡巴斯基，我利用了另一个方法拿到了这台服务器的权限。</p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps28.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps28.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>这里我发现了他们老OA是直接调用的这台服务器的IE游览器并且出网，那这不是简单多了，我直接下载了一个远控，GotoHTTP 这个和向日葵一样能直接控制这台服务器的桌面，因为它安装简单获取密码也简单，这里也推荐一篇文章讲述了怎么利用和方法，这个方法估计大家都晓得，在无法过杀软的情况下挺好用的。</p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/eseIP4rbP9ecpykDjQ--pg">https://mp.weixin.qq.com/s/eseIP4rbP9ecpykDjQ--pg</a></p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps29.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps29.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>这里我们通过异速联的方法已经控制到了这台服务器的cmd.exe了，我们就可以去找GotoHTTP的配置文件拿到账号和密码并登陆了。</p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps30.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps31.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps30.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps31.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>为了防止这个远控出问题以及这个远控还要收钱，所以我又给这台电脑按了一个ToDesk 哈哈，这里原谅我技术菜哈只能用这个方法了。</p>
 <p>这里也是很开行成功进入了他们内网了，并把ToDesk账号密码告诉了他们，接下来不就轻松了嘛，想着能休息一下等会再搞内网吧，可是老天会让你这么轻松的干下去？不知道那个队友去吃饭时把ToDesk给退了，都知道新的ToDesk是在你退了之后会锁屏的，我正吃着零食呢望了一眼我的电脑发现怎么给锁屏了啊，因为我的GotoHTTP还没退，擦，立马问同事咋回事，可是已经晚了，屏幕被锁了，得需要密码才能登！</p>
 <p> 又想着是卡巴斯基，直接用mimikatz绝对被杀，那就用其他方法把，我这里用的是下载的微软自己的工具Procdump.exe，用procdump.exe把进lsass.exe 的内存dump下来然后将文件放在本机再用mimikatz去读密码。</p>
 <p>procdump.exe -accepteula -ma lsass.exe lsass.dmp </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps32.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps32.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>mimikatz.exe “sekurlsa::minidump lsass.dmp” “sekurlsa::logonPasswords full” exit </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps33.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps33.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>这里你直接去用它的IE游览器去微软官网去下Procdump.exe是不让下载的，可能是卡巴斯基拦了吧，当然在前面我安装那两款远控也是不能去他们官网直接下的原因应该也是卡巴斯基拦了，这里该怎么办呢，那就得解决啊，于是我就在自己本机把这些安装包放在了自己的vps上直接用IE游览器去访问我的vps下载这些工具就解决了，但是直接用自己的vps去下会有风险，这里我们也可以用****文叔叔，星际网盘****等方法把我们的工具放进去再下载也是一种方法，这里卡巴斯基就不会拦了，下载完后也要清理网站痕迹哈。</p>
 <p>也是成功的获取到了服务器的密码并登陆成功，又可以继续浪了！<strong>这里说一下其实用这个方法获取服务器3389密码卡巴斯基是会拦截的</strong>，但是我不清楚为撒我会成功，因为在别的内网机子用一样的方法就会被拦，也真是运气好吧！当然绕过杀软读密码的方法挺多，这里也分享一下过卡巴斯基读密码的文章但不清楚现在能不能过了。</p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/WLP1soWz-_BEouMxTHLbzg">https://mp.weixin.qq.com/s/WLP1soWz-_BEouMxTHLbzg</a></p>
 <p><a target="_blank" rel="noopener" href="http://wiki.tidesec.com/docs/bypassav">http://wiki.tidesec.com/docs/bypassav</a></p>
 <h2 id="漫游内网"><a href="#漫游内网" class="headerlink" title="漫游内网"></a>漫游内网</h2><p>这里也是成功进入内网了，由于卡巴的存在，我们在内网找了一台出网的Linux主机做的代理，配置完代理后就开始卡卡乱杀了，首先找到了他们运维管理平台获取到了他们的网络拓扑，这里的密码依旧是用的前期收集到了那个管理员的工号进去的，可以说这个管理员对我们帮助很大！</p>
 <p>当然在内网中信息收集还是很重要的，比如在能访问的服务器上找游览器的账号密码、服务器上的存在xshell等连接工具的信息并解密获取密码、寻找密码本、用发现的密码寻找规则做密码本进行密码喷洒去获取更多的服务器权限并进一步获取各种内网信息。当然内网信息收集方法很多文章也很多都可以去学习。</p>
-<p><img src="file:///C:\Users\yang\AppData\Local\Temp\ksohtml23636\wps34.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<p><img src="file:///C:\Users\yang\AppData\Local\Temp\ksohtml23636\wps35.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps34.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps35.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>接着就是用fscan和弱口令工具跑内网了，那内网弱口令肯定不会少啦，也是获取到了不少主机权限和数据库了，但是这不是我们想要的靶标啊，分也拿不满啊！</p>
 <p>那就继续干吧，该单位内网中应该是没有域的但也可能是没发现吧，但他们内网中 ****vCenter*<em><strong>挺多的那要是拿下</strong></em>*vCenter*<em><strong>不也一样嘛！该说不说运气也是好其内网的</strong></em>*vCenter*<em><strong>都存在任意文件上传漏洞（CVE-2021-22005）就不好办了直接拿到shell并找到其配置文件并用脚本获取到Cookie直接成功登陆到</strong></em>*vCenter****后台并成功控制了其内部所有服务器，并获取靶标权限！下面是vCenter的利用文章。</p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OmHCclNVrBgS2_ttWq3-Fg">https://mp.weixin.qq.com/s/OmHCclNVrBgS2_ttWq3-Fg</a></p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps36.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps37.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps38.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps39.jpg) </p>
-<p>![img](D:\yywqq123\Blog Space\boke\themes\fluid\source\image\wps40.jpg) </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps36.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps37.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps38.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps39.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps40.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
 <p>因为vCenter都存在漏洞使我们在这次内网中并没有过多去信息收集也让我们内网没花太多时间就结束了这家单位。</p>
 <h2 id="收官"><a href="#收官" class="headerlink" title="收官"></a>收官</h2><p>最终呢通过队友的协作也是拿到了第一名的成绩，但是和某队是并列第一，又开始抽签打别的队伍的资产，真是要让我们拼个你死我活来，结果还是好的通过努力最终小胜对方，不过对方因为一些原因和主办方干了起来最终被取消成绩，也是挺猛的哈哈</p>
 <p>再解释一下我们钓鱼为撒会被骂呢原来是在攻防前这家单位就是被钓鱼打穿过，怪不得反应很快。</p>
