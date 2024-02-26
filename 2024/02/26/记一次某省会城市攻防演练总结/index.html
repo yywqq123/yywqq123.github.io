@@ -41,15 +41,15 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps31.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps32.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps33.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps34.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps35.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240226174651111.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240226174703204.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps36.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps37.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps38.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps39.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps40.jpg">
 <meta property="article:published_time" content="2024-02-26T09:23:41.000Z">
-<meta property="article:modified_time" content="2024-02-26T09:40:55.544Z">
+<meta property="article:modified_time" content="2024-02-26T09:47:38.506Z">
 <meta property="article:author" content="WY3507">
 <meta property="article:tag" content="红队">
 <meta property="article:tag" content="攻防">
@@ -353,8 +353,8 @@
 <p><a target="_blank" rel="noopener" href="http://wiki.tidesec.com/docs/bypassav">http://wiki.tidesec.com/docs/bypassav</a></p>
 <h2 id="漫游内网"><a href="#漫游内网" class="headerlink" title="漫游内网"></a>漫游内网</h2><p>这里也是成功进入内网了，由于卡巴的存在，我们在内网找了一台出网的Linux主机做的代理，配置完代理后就开始卡卡乱杀了，首先找到了他们运维管理平台获取到了他们的网络拓扑，这里的密码依旧是用的前期收集到了那个管理员的工号进去的，可以说这个管理员对我们帮助很大！</p>
 <p>当然在内网中信息收集还是很重要的，比如在能访问的服务器上找游览器的账号密码、服务器上的存在xshell等连接工具的信息并解密获取密码、寻找密码本、用发现的密码寻找规则做密码本进行密码喷洒去获取更多的服务器权限并进一步获取各种内网信息。当然内网信息收集方法很多文章也很多都可以去学习。</p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps34.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps35.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240226174651111.png" srcset="/img/loading.gif" lazyload alt="image-20240226174651111"></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240226174703204.png" srcset="/img/loading.gif" lazyload alt="image-20240226174703204"></p>
 <p>接着就是用fscan和弱口令工具跑内网了，那内网弱口令肯定不会少啦，也是获取到了不少主机权限和数据库了，但是这不是我们想要的靶标啊，分也拿不满啊！</p>
 <p>那就继续干吧，该单位内网中应该是没有域的但也可能是没发现吧，但他们内网中 ****vCenter*<em><strong>挺多的那要是拿下</strong></em>*vCenter*<em><strong>不也一样嘛！该说不说运气也是好其内网的</strong></em>*vCenter*<em><strong>都存在任意文件上传漏洞（CVE-2021-22005）就不好办了直接拿到shell并找到其配置文件并用脚本获取到Cookie直接成功登陆到</strong></em>*vCenter****后台并成功控制了其内部所有服务器，并获取靶标权限！下面是vCenter的利用文章。</p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OmHCclNVrBgS2_ttWq3-Fg">https://mp.weixin.qq.com/s/OmHCclNVrBgS2_ttWq3-Fg</a></p>
