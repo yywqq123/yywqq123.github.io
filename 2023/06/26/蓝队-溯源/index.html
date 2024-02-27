@@ -16,29 +16,25 @@
   <meta name="author" content="WY3507">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言通常在网站通讯中很多都会调用api接口去管理更多得信息，但是这往往会是发开人员做限制比较薄弱得地方，就可能让我们有机可乘，在一次攻防中我就遇到了这个场景 WSDL​		有人在WebService开发的时候，特别是和第三方有接口的时候，走的是SOAP协议，然后用户（或后台）给你一个WSDL文件（或网址） ​		WSDL (Web Services Description Language,Web">
+    <meta name="description" content="含义:溯源顾名思义就是通过一些技术手段和各种信息收集的方式来寻找到我们想要的攻击人员信息，并在次过程中尽可能的寻找出人员的全部信息。但是溯源也是存在运气成分的，并不是说任何攻击IP都能溯源到人，但我们可以尽量提供一些相关信息并写好溯源报告给甲方就行。 溯源第一步：判断攻击IP类型一般我们在安全设备拿到攻击IP的时候都会想用微步在线等威胁平台去查询攻击IP的类型。 ·1 移动基站IP(即为手机热点I">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSDL渗透测试">
-<meta property="og:url" content="http://example.com/2024/02/23/WSDL%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:title" content="蓝队-溯源">
+<meta property="og:url" content="http://example.com/2023/06/26/%E8%93%9D%E9%98%9F-%E6%BA%AF%E6%BA%90/index.html">
 <meta property="og:site_name" content="WY3507&amp;Blog">
-<meta property="og:description" content="前言通常在网站通讯中很多都会调用api接口去管理更多得信息，但是这往往会是发开人员做限制比较薄弱得地方，就可能让我们有机可乘，在一次攻防中我就遇到了这个场景 WSDL​		有人在WebService开发的时候，特别是和第三方有接口的时候，走的是SOAP协议，然后用户（或后台）给你一个WSDL文件（或网址） ​		WSDL (Web Services Description Language,Web">
+<meta property="og:description" content="含义:溯源顾名思义就是通过一些技术手段和各种信息收集的方式来寻找到我们想要的攻击人员信息，并在次过程中尽可能的寻找出人员的全部信息。但是溯源也是存在运气成分的，并不是说任何攻击IP都能溯源到人，但我们可以尽量提供一些相关信息并写好溯源报告给甲方就行。 溯源第一步：判断攻击IP类型一般我们在安全设备拿到攻击IP的时候都会想用微步在线等威胁平台去查询攻击IP的类型。 ·1 移动基站IP(即为手机热点I">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223165256204.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223170100243.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171138234.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171353819.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180901639.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180117000.png">
-<meta property="article:published_time" content="2024-02-23T08:33:47.000Z">
-<meta property="article:modified_time" content="2024-02-23T10:13:53.779Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240226161639906.png">
+<meta property="article:published_time" content="2023-06-26T08:09:12.000Z">
+<meta property="article:modified_time" content="2024-02-27T06:38:24.284Z">
 <meta property="article:author" content="WY3507">
-<meta property="article:tag" content="渗透">
+<meta property="article:tag" content="蓝队">
+<meta property="article:tag" content="溯源">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223165256204.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240226161639906.png">
   
   
   
-  <title>WSDL渗透测试 - WY3507&amp;Blog</title>
+  <title>蓝队-溯源 - WY3507&amp;Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="WSDL渗透测试"></span>
+            <span id="subtitle" data-typed-text="蓝队-溯源"></span>
           
         </div>
 
@@ -215,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-23 16:33" pubdate>
-          2024年2月23日 下午
+        <time datetime="2023-06-26 16:09" pubdate>
+          2023年6月26日 下午
         </time>
       </span>
     
@@ -227,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          605 字
+          1k 字
         
       </span>
     
@@ -238,7 +234,7 @@
         
         
         
-          6 分钟
+          9 分钟
         
       </span>
     
@@ -275,34 +271,56 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">WSDL渗透测试</h1>
+            <h1 id="seo-header">蓝队-溯源</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>通常在网站通讯中很多都会调用api接口去管理更多得信息，但是这往往会是发开人员做限制比较薄弱得地方，就可能让我们有机可乘，在一次攻防中我就遇到了这个场景</p>
-<h2 id="WSDL"><a href="#WSDL" class="headerlink" title="WSDL"></a>WSDL</h2><p>​		有人在WebService开发的时候，特别是和第三方有接口的时候，走的是SOAP协议，然后用户（或后台）给你一个WSDL文件（或网址）</p>
-<p>​		WSDL (Web Services Description Language,Web服务描述语言)是一种XML Application，他将Web服务描述定义为一组服务访问点，客户端可以通过这些服务访问点对包含面向文档信息或面向过程调用的服务进行访问(类似远程过程调用)。WSDL首先对访问的操作和访问时使用的请求&#x2F;响应消息进行抽象描述，然后将其绑定到具体的传输协议和消息格式上以最终定义具体部署的服务访问点。相关的具体部署的服务访问点通过组合就成为抽象的Web服务</p>
-<h2 id="WSDL会产生什么漏洞"><a href="#WSDL会产生什么漏洞" class="headerlink" title="WSDL会产生什么漏洞"></a>WSDL会产生什么漏洞</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-number">1</span>.Web 应用安全漏洞:<br>   sql注入<br>   xss攻击<br>   命令执行<br>   越权<br>   LDAP注入<br>   缓冲区溢出<br>   逻辑漏洞<br>   等等<br>   <br><span class="hljs-number">2</span>.<span class="hljs-keyword">XML</span> <span class="hljs-title">相关的特殊安全漏洞:</span><br><span class="hljs-title">   XPath</span>注入<br>   XQuery注入<br>   拒绝服务攻击（SOAP 数组溢出、递归的 <span class="hljs-keyword">XML</span> <span class="hljs-title">实体声明、超大消息体）</span><br><span class="hljs-title">   信息泄漏（XML</span> External Entity File Disclosure）<br>   等等<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="实战测试"><a href="#实战测试" class="headerlink" title="实战测试"></a>实战测试</h2><p>一、 发现该站点存在WSDL网站（其实WSDL得特征还是挺明显得，但是从明面上发现没有可利用得功能点，可能经验少的人就会略过，但他不曾想到这个站点会给他带来惊喜）<strong>但是这不是WSDL的单一特征</strong></p>
-<p><strong>hunter语法: web.body&#x3D;”WS-Inspection “</strong></p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223165256204.png" srcset="/img/loading.gif" lazyload alt="image-20240223165256204"></p>
-<p>二、WSDL是一个api接口我们需要利用工具或者插件去探索各个接口下的xml文档，而漏洞就是产生在这些xml文档中</p>
-<p>我们可以直接利用<strong>burp中的插件Wsdler</strong></p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223170100243.png" srcset="/img/loading.gif" lazyload alt="image-20240223170100243"></p>
-<p>安装完插件利用该插件去查看存在的xml包</p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171138234.png" srcset="/img/loading.gif" lazyload alt="image-20240223171138234"></p>
-<p>发现存在xml数据包</p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223171353819.png" srcset="/img/loading.gif" lazyload alt="image-20240223171353819"></p>
-<p>接下来我们就可以对该数据包进行漏洞探测了，一般常见的就是sql注入和xxe了</p>
-<p><strong>sql注入漏洞</strong></p>
-<p>一般通wsdl发现的注入都是sqlserver数据库，要是又是DBA权限的话那离拿shell也不远了</p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180901639.png" srcset="/img/loading.gif" lazyload alt="image-20240223180901639"></p>
-<p><strong>xxe漏洞</strong></p>
-<p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240223180117000.png" srcset="/img/loading.gif" lazyload alt="image-20240223180117000"></p>
+                <h1 id="含义"><a href="#含义" class="headerlink" title="含义:"></a>含义:</h1><p>溯源顾名思义就是通过一些技术手段和各种信息收集的方式来寻找到我们想要的攻击人员信息，并在次过程中尽可能的寻找出人员的全部信息。但是溯源也是存在运气成分的，并不是说任何攻击IP都能溯源到人，但我们可以尽量提供一些相关信息并写好溯源报告给甲方就行。</p>
+<h2 id="溯源第一步：判断攻击IP类型"><a href="#溯源第一步：判断攻击IP类型" class="headerlink" title="溯源第一步：判断攻击IP类型"></a>溯源第一步：判断攻击IP类型</h2><p>一般我们在安全设备拿到攻击IP的时候都会想用微步在线等威胁平台去查询攻击IP的类型。</p>
+<p><strong>·1 移动基站IP(即为手机热点IP）</strong></p>
+<p><strong>·2 IDC服务器IP(即为云服务器厂商IP）</strong></p>
+<p><strong>·3 企业专线IP（即为企业专用的网络出口）</strong></p>
+<h2 id="溯源第二步：对不同IP溯源"><a href="#溯源第二步：对不同IP溯源" class="headerlink" title="溯源第二步：对不同IP溯源"></a>溯源第二步：对不同IP溯源</h2><p><strong>一：</strong>在拿到很多攻击IP的时候我们为了快速去寻找好溯源的IP，我们首先找云服务器IP去溯源、其次是企业专线。一般的情况我们不去看移动基站的IP，因为手机热点的IP溯源是很难溯源到人的，所以不浪费时间。</p>
+<p><strong>二：</strong>对于企业专线的IP可以进行简单溯源，以及使用IP定位网站进行定位，运气好可以定位到某些公司的地址，那也算是溯源到了部分信息了。</p>
+<p><strong>三：</strong>对于IDC服务器以及傀儡机的溯源方法我会通过另一份文档描述</p>
+<h2 id="溯源第三步：其他溯源方法"><a href="#溯源第三步：其他溯源方法" class="headerlink" title="溯源第三步：其他溯源方法"></a>溯源第三步：其他溯源方法</h2><p><strong>一：</strong>通过客户在内外网的蜜罐进行溯源，很多蜜罐是可以获取一些攻击人员信息的，我们可以利用这个方法来深度溯源</p>
+<p><strong>二：</strong>通过查看安全设备，观察其攻击流量，在有些攻击人员在大意中会将其私密信息暴漏在攻击流量中，比如手机号之类的，要是遇到了这样的流量我们可以提取其中的信息去深度溯源。</p>
+<p><strong>三：</strong> 有些时候会存在钓鱼攻击的情况，那我们可以去分析其钓鱼的样本去查看它的C2服务器或者其他信息，也可以看看对方使用的是什么邮箱来钓鱼的，有些大意的攻击人员会用自己的邮箱去钓鱼，那我们就可以利用其邮箱去溯源。</p>
+<p><strong>四：</strong>还有一些溯源方法就不是技术手段能达到的了，比如依靠公安、服务器厂商调取注册个人信息、以及一些小的IDC厂商直接获取服务权限等方法溯源。当然这些我们不需要，只是拓展一下思路。</p>
+<h2 id="溯源第四步：写溯源报告"><a href="#溯源第四步：写溯源报告" class="headerlink" title="溯源第四步：写溯源报告"></a>溯源第四步：写溯源报告</h2><p><strong>一：</strong>在我们前期通过各种上述溯源思路以及别的溯源思路去溯源到信息后我们可以写溯源报告了，把整个过程完整的写清楚即可，要是没有溯源到人，就比如是傀儡机等其他情况我们也只需要把我们溯源到的信息完整的写份报告就行，毕竟溯源也是有运气成分的，所以尽力就行。</p>
+<h2 id="溯源所需工具及网站"><a href="#溯源所需工具及网站" class="headerlink" title="溯源所需工具及网站"></a>溯源所需工具及网站</h2><p>一：IP定位信息网站</p>
+<p><a target="_blank" rel="noopener" href="https://website.informer.com/">https://website.informer.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://ip.bczs.net/">https://ip.bczs.net/</a></p>
+<p><a target="_blank" rel="noopener" href="https://pulsedive.com/">https://pulsedive.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.abuseipdb.com/">https://www.abuseipdb.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://anti-hacker-alliance.com/">https://anti-hacker-alliance.com/</a></p>
+<p>二：ICP备案查询</p>
+<p><a target="_blank" rel="noopener" href="https://www.beianx.cn/">https://www.beianx.cn/</a></p>
+<p><a target="_blank" rel="noopener" href="https://whois.aizhan.com/">https://whois.aizhan.com/</a></p>
+<p>三：威胁情报平台</p>
+<p><a target="_blank" rel="noopener" href="https://x.threatbook.com/">https://x.threatbook.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://ti.qianxin.com/">https://ti.qianxin.com/</a></p>
+<p>四：资产收集平台</p>
+<p><a target="_blank" rel="noopener" href="https://hunter.qianxin.com/">https://hunter.qianxin.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://fofa.info/">https://fofa.info/</a></p>
+<p>五：手机号注册网站查询</p>
+<p><a target="_blank" rel="noopener" href="https://www.reg007.com/">https://www.reg007.com/</a></p>
+<p>六：企业备案信息</p>
+<p><a target="_blank" rel="noopener" href="https://aiqicha.baidu.com/">https://aiqicha.baidu.com/</a></p>
+<p>七：网站回溯平台</p>
+<p><a target="_blank" rel="noopener" href="https://archive.org/web/">https://archive.org/web/</a></p>
+<p>八：IP定位</p>
+<p><a target="_blank" rel="noopener" href="https://www.opengps.cn/Data/IP/LocHighAcc.aspx">https://www.opengps.cn/Data/IP/LocHighAcc.aspx</a></p>
+<h2 id="溯源文章"><a href="#溯源文章" class="headerlink" title="溯源文章"></a>溯源文章</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46684578/article/details/114489576"><strong>https://blog.csdn.net/weixin_46684578&#x2F;article&#x2F;details&#x2F;114489576</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sohu.com/a/417803746_658302"><strong>https://www.sohu.com/a/417803746_658302</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/538427399"><strong>https://zhuanlan.zhihu.com/p/538427399</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/346936.html"><strong>https://www.freebuf.com/articles/network/346936.html</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.hsm.cool/index.php/archives/771/"><strong>https://blog.hsm.cool/index.php/archives/771/</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sec-in.com/article/1834?action=comment"><strong>https://www.sec-in.com/article/1834?action=comment</strong></a></p>
+<h2 id="溯源具体细节"><a href="#溯源具体细节" class="headerlink" title="溯源具体细节"></a>溯源具体细节</h2><p><img src="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/main/image/image-20240226161639906.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>PDF版</strong></p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/blob/main/img/idc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%BA%AF%E6%BA%90.pdf">https://raw.githubusercontent.com/yywqq123/yywqq123.github.io/blob/main/img/idc服务器溯源.pdf</a></p>
 
                 
               </div>
@@ -321,7 +339,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%BA%A2%E9%98%9F%E6%94%BB%E9%98%B2/" class="category-chain-item">红队攻防</a>
+  <a href="/categories/%E8%93%9D%E9%98%9F/" class="category-chain-item">蓝队</a>
   
   
 
@@ -336,7 +354,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B8%97%E9%80%8F/" class="print-no-link">#渗透</a>
+        <a href="/tags/%E8%93%9D%E9%98%9F/" class="print-no-link">#蓝队</a>
+      
+        <a href="/tags/%E6%BA%AF%E6%BA%90/" class="print-no-link">#溯源</a>
       
     </div>
   
@@ -348,8 +368,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>WSDL渗透测试</div>
-      <div>http://example.com/2024/02/23/WSDL渗透测试/</div>
+      <div>蓝队-溯源</div>
+      <div>http://example.com/2023/06/26/蓝队-溯源/</div>
     </div>
     <div class="license-meta">
       
@@ -361,7 +381,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月23日</div>
+          <div>2023年6月26日</div>
         </div>
       
       
@@ -393,12 +413,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2024/02/22/%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="红队-外网信息收集">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">红队-外网信息收集</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/02/22/%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" title="红队-外网信息收集">
-                        <span class="hidden-mobile">红队-外网信息收集</span>
+                      <a href="/2023/06/26/DLL%E6%8C%96%E6%8E%98%E5%8F%8A%E7%AA%81%E7%A0%B4360%E6%A0%B8%E6%99%B6%E5%88%A9%E7%94%A8/" title="DLL挖掘及突破360核晶利用">
+                        <span class="hidden-mobile">DLL挖掘及突破360核晶利用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
